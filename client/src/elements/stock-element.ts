@@ -3,8 +3,7 @@ import { customElement, property } from "lit/decorators.js";
 import { buttonStyles } from "../styles/button-styles";
 import { Product } from "../types";
 import { Task } from "@lit/task";
-
-const API_URL = process.env.API_URL || "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
 @customElement("stock-element")
 export class Stock extends LitElement {

@@ -6,7 +6,7 @@ import { buttonStyles } from "../styles/button-styles";
 import "./product-element";
 import { Product } from "../types";
 
-const API_URL = process.env.API_URL || "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
 @customElement("products-element")
 export class ProductsElement extends LitElement {
