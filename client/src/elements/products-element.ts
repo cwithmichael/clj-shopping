@@ -1,10 +1,10 @@
 import { LitElement, css, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { Task } from "@lit/task";
-import { cardStyles } from "./card-styles";
-import { buttonStyles } from "./button-styles";
+import { cardStyles } from "../styles/card-styles";
+import { buttonStyles } from "../styles/button-styles";
 import "./product-element";
-import { Product } from "./types";
+import { Product } from "../types";
 
 @customElement("products-element")
 export class ProductsElement extends LitElement {

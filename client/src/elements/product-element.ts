@@ -1,9 +1,9 @@
 import { LitElement, css, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { cardStyles } from "./card-styles";
-import { buttonStyles } from "./button-styles";
+import { cardStyles } from "../styles/card-styles";
+import { buttonStyles } from "../styles/button-styles";
 import "./stock-element";
-import { Product } from "./types";
+import { Product } from "../types";
 
 @customElement("product-element")
 export class ProductElement extends LitElement {

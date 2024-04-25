@@ -1,6 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
-import { buttonStyles } from "./button-styles";
+import { buttonStyles } from "../styles/button-styles";
 import { Task } from "@lit/task";
 
 @customElement("reset-button")

@@ -1,8 +1,8 @@
 import { LitElement, html, css, svg } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { cardStyles } from "./card-styles";
-import { buttonStyles } from "./button-styles";
-import { CartItem } from "./types";
+import { cardStyles } from "../styles/card-styles";
+import { buttonStyles } from "../styles/button-styles";
+import { CartItem } from "../types";
 import { Task } from "@lit/task";
 import "./cart-item-element";
 

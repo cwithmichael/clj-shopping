@@ -1,7 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { buttonStyles } from "./button-styles";
-import { Product } from "./types";
+import { buttonStyles } from "../styles/button-styles";
+import { Product } from "../types";
 import { Task } from "@lit/task";
 
 @customElement("stock-element")

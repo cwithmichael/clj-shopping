@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { cardStyles } from "./card-styles";
-import { CartItem } from "./types";
+import { cardStyles } from "../styles/card-styles";
+import { CartItem } from "../types";
 
 @customElement("cart-item-element")
 export class CartItemElement extends LitElement {

@@ -16,5 +16,6 @@ modules/
 
 # clj-kondo
 .clj-kondo/.cache/
+.clj-kondo/taoensso/
 .calva/output-window/
 .lsp/.cache/
