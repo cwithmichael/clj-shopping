@@ -1,5 +1,38 @@
 # clj-shopping
 
+## To Run locally
+
+### Make sure you have
+
+- a local Redis instance running on port 6379
+- Java installed
+- Clojure installed
+
+#### Start the Server
+
+`clj -T:build all && java -jar target/clj-shopping-standalone.jar`
+
+#### Start the Client in a different terminal window
+
+`cd client`
+
+`npm install`
+
+`npm run dev`
+
+The Swagger API will be at
+http://localhost:3000/api/index.html#/
+![swagger-api](./docs/images/swagger.png)
+
+The UI should be running at
+http://localhost:5173/
+
+![shopping-cart-desktop](./docs/images/shopping-cart1.png)
+
+![shopping-cart-mobile-1](./docs/images/shopping-cart2.png)
+
+## ![shopping-cart-mobile-2](./docs/images/shopping-cart3.png)
+
 Start a [REPL](#repls) in your editor or terminal of choice.
 
 Start the server with:
