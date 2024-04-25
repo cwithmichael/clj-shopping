@@ -1,5 +1,7 @@
 # clj-shopping
 
+This project is based off of the [Redis Shopping Cart app tutorial](https://github.com/redis-developer/basic-redis-shopping-chart-nodejs).
+
 ## To Run locally
 
 ### Make sure you have
