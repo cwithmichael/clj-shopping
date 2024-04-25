@@ -40,6 +40,7 @@ http://localhost:5173/
 - Add proper error handling
 - Add tests
 - Improve documentation
+- Rethink architecture on client side
 
 ## Local Clojure Development
 
