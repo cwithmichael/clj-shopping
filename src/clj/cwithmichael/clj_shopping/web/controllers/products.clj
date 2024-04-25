@@ -4,10 +4,13 @@
             [taoensso.carmine :as car :refer [wcar]]
             [ring.util.http-response :as http-response]))
 
-(defn read-products []
+(defn read-products
+  "Read products from a pre-loaded JSON file."
+  []
   (json/read-str (slurp "./products.json")))
 
 (defn index
+  "Fetch all products."
   [request]
   (let [{:keys [db]} (utils/route-data request)
         product-keys (wcar db (car/keys "product:*"))]
@@ -20,6 +23,7 @@
         (http-response/ok products)))))
 
 (defn get-product
+  "Fetch a product by ID."
   [request]
   (let [{:keys [db]} (utils/route-data request)
         id (-> request :path-params :id)
@@ -29,6 +33,7 @@
       (http-response/not-found))))
 
 (defn reset-products!
+  "Reset products to the initial state."
   [request]
   (let [{:keys [db]} (utils/route-data request)
         products (read-products)

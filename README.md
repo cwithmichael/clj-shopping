@@ -33,7 +33,14 @@ http://localhost:5173/
 
 ![shopping-cart-mobile-1](./docs/images/shopping-cart2.png)
 
-## ![shopping-cart-mobile-2](./docs/images/shopping-cart3.png)
+![shopping-cart-mobile-2](./docs/images/shopping-cart3.png)
+
+## TODO
+
+- Add tests
+- Improve documentation
+
+## Local Clojure Development
 
 Start a [REPL](#repls) in your editor or terminal of choice.
 

@@ -43,33 +43,41 @@
            :handler (swagger/create-swagger-handler)}}]
    ["/cart"
     {:delete {:handler cart/clear-cart!
-              :respones {204 nil}}
+              :respones {204 nil}
+              :swagger {:summary "Clear the cart."}}
      :get  {:handler cart/index
-            :responses {200 {:body [:sequential Item]}}}}]
+            :responses {200 {:body [:sequential Item]}}
+            :swagger {:summary "Fetch all cart items."}}}]
    ["/cart/:id"
     {:delete {:handler cart/delete-item!
               :parameters {:path [:map [:id [:string]]]}
-              :respones {204 nil}}
+              :respones {204 nil}
+              :swagger {:summary "Remove a product from the cart."}}
      :put {:handler cart/update-cart!
            :parameters {:body [:map
                                [:increment-by  [:int {:min -1 :max 1}]]]
                         :path [:map [:id [:string]]]}
            :responses {200 nil
-                       400 {:body [:map [:message {:optional true} [:string]]]}}}}]
+                       400 {:body [:map [:message {:optional true} [:string]]]}}
+           :swagger {:summary "Update the quantity of a product in the cart."}}}]
    ["/reset"
     {:post {:handler products/reset-products!
-            :respones {200 nil}}}]
+            :respones {200 nil}
+            :swagger {:summary "Reset products to the initial state."}}}]
    ["/products/:id"
     {:get  {:handler products/get-product
             :parameters {:path [:map [:id [:string]]]}
-            :responses {200 {:body Product}}}}]
+            :responses {200 {:body Product}}
+            :swagger {:summary "Fetch a product by ID."}}}]
 
    ["/products"
     {:get  {:handler products/index
-            :responses {200 {:body [:sequential Product]}}}}]
+            :responses {200 {:body [:sequential Product]}}
+            :swagger {:summary "Fetch all products."}}}]
    ["/health"
     {:get {:handler health/healthcheck!
-           :responses {200 {:body Health}}}}]])
+           :responses {200 {:body Health}}
+           :swagger {:summary "Health check."}}}]])
 
 (derive :reitit.routes/api :reitit/routes)
 

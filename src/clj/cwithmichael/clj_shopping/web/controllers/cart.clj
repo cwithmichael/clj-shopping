@@ -5,6 +5,7 @@
    [ring.util.http-response :as http-response]))
 
 (defn index
+  "Fetch all cart items for the current session."
   [request]
   (let [{:keys [db]} (utils/route-data request)
         cart-id (-> request :session :cart-id)
@@ -17,11 +18,14 @@
                                 []
                                 (partition 2 cart-items-db))))))
 
-(defn- get-quantity-in-cart [db cart-id product-id]
+(defn- get-quantity-in-cart
+  "Get the quantity of a product in the cart."
+  [db cart-id product-id]
   (let [quantity-in-cart (wcar db (car/hget (format "cart:%s" cart-id)  (format "product:%s" product-id)))]
     (if (empty? quantity-in-cart) 0 (parse-long quantity-in-cart))))
 
 (defn delete-item!
+  "Remove a product from the cart."
   [request]
   (let [{:keys [db]} (utils/route-data request)
         cart-id (-> request :session :cart-id)
@@ -35,6 +39,7 @@
     (http-response/no-content)))
 
 (defn clear-cart!
+  "Remove all products from the cart."
   [request]
   (let [{:keys [db]} (utils/route-data request)
         cart-id (-> request :session :cart-id)
@@ -50,6 +55,7 @@
       (http-response/no-content))))
 
 (defn update-cart!
+  "Update the quantity of a product in the cart."
   [request]
   (let [{:keys [db]} (utils/route-data request)
         cart-id (-> request :session :cart-id)
