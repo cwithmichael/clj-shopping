@@ -1,0 +1,8 @@
+{:full-name "cwithmichael/clj-shopping"
+ :ns-name   "cwithmichael.clj-shopping"
+ :sanitized "cwithmichael/clj_shopping"
+ :name      "clj-shopping"
+ :modules   {:root         "modules"
+             :repositories [{:url  "https://github.com/kit-clj/modules.git"
+                             :tag  "master"
+                             :name "kit-modules"}]}}

@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sedan:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #f8f8fb;
+  font-family: "Oswald", sans-serif;
+  font-family: "Bebas Neue", cursive;
+}
