@@ -6,6 +6,8 @@ import { buttonStyles } from "../styles/button-styles";
 import "./product-element";
 import { Product } from "../types";
 
+const API_URL = process.env.API_URL || "http://localhost:3000";
+
 @customElement("products-element")
 export class ProductsElement extends LitElement {
   @property()
@@ -17,7 +19,7 @@ export class ProductsElement extends LitElement {
 
   private _productsTask = new Task(this, {
     task: async ([], { signal }: any) => {
-      const response = await fetch(`http://localhost:3000/api/products`, {
+      const response = await fetch(`${API_URL}/api/products`, {
         signal,
       });
       if (!response.ok) {

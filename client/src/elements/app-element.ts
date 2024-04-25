@@ -8,6 +8,8 @@ import "./reset-button";
 import "./footer-element";
 import { Task } from "@lit/task";
 
+const API_URL = process.env.API_URL || "http://localhost:3000";
+
 @customElement("app-element")
 export class App extends LitElement {
   @property()
@@ -37,7 +39,7 @@ export class App extends LitElement {
 
   private _clearCartTask = new Task(this, {
     task: async ({ signal }: any) => {
-      const response = await fetch(`http://localhost:3000/api/cart`, {
+      const response = await fetch(`${API_URL}/api/cart`, {
         method: "DELETE",
         credentials: "include",
         signal,
@@ -52,14 +54,11 @@ export class App extends LitElement {
 
   private _deleteFromCartTask = new Task(this, {
     task: async ([productId], { signal }: any) => {
-      const response = await fetch(
-        `http://localhost:3000/api/cart/${productId}`,
-        {
-          method: "DELETE",
-          credentials: "include",
-          signal,
-        }
-      );
+      const response = await fetch(`${API_URL}/api/cart/${productId}`, {
+        method: "DELETE",
+        credentials: "include",
+        signal,
+      });
       if (!response.ok) {
         throw new Error(response.status.toString());
       }
@@ -70,21 +69,18 @@ export class App extends LitElement {
 
   private _updateCartTask = new Task(this, {
     task: async ([productId, incrementBy], { signal }: any) => {
-      const response = await fetch(
-        `http://localhost:3000/api/cart/${productId}`,
-        {
-          method: "PUT",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            "increment-by": incrementBy ?? 1,
-          }),
-          signal,
-        }
-      );
+      const response = await fetch(`${API_URL}/api/cart/${productId}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          "increment-by": incrementBy ?? 1,
+        }),
+        signal,
+      });
       if (!response.ok) {
         throw new Error(response.status.toString());
       }

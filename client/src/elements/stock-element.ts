@@ -4,6 +4,8 @@ import { buttonStyles } from "../styles/button-styles";
 import { Product } from "../types";
 import { Task } from "@lit/task";
 
+const API_URL = process.env.API_URL || "http://localhost:3000";
+
 @customElement("stock-element")
 export class Stock extends LitElement {
   @property() product!: Product;
@@ -11,12 +13,9 @@ export class Stock extends LitElement {
 
   private _getProductTask = new Task(this, {
     task: async ([productId]) => {
-      const response = await fetch(
-        `http://localhost:3000/api/products/${productId}`,
-        {
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${API_URL}/api/products/${productId}`, {
+        credentials: "include",
+      });
       if (!response.ok) {
         throw new Error(response.status.toString());
       }

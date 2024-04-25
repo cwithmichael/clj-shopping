@@ -2,12 +2,13 @@ import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { buttonStyles } from "../styles/button-styles";
 import { Task } from "@lit/task";
+const API_URL = process.env.API_URL || "http://localhost:3000";
 
 @customElement("reset-button")
 export class ResetButton extends LitElement {
   private _resetDataTask = new Task(this, {
     task: async ({ signal }: any) => {
-      const response = await fetch(`http://localhost:3000/api/reset`, {
+      const response = await fetch(`${API_URL}/api/reset`, {
         method: "POST",
         signal,
       });
