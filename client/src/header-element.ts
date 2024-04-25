@@ -67,5 +67,11 @@ export class HeaderElement extends LitElement {
         display: none;
       }
     }
+
+    @media (max-width: 414px) {
+      section {
+        font-size: 1.5em;
+      }
+    }
   `;
 }
