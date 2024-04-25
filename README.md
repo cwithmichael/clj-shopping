@@ -37,6 +37,7 @@ http://localhost:5173/
 
 ## TODO
 
+- Add proper error handling
 - Add tests
 - Improve documentation
 
