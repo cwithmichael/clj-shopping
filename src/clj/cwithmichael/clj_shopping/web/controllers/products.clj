@@ -28,7 +28,7 @@
       (http-response/ok product)
       (http-response/not-found))))
 
-(defn reset-products
+(defn reset-products!
   [request]
   (let [{:keys [db]} (utils/route-data request)
         products (read-products)

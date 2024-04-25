@@ -21,7 +21,7 @@
   (let [quantity-in-cart (wcar db (car/hget (format "cart:%s" cart-id)  (format "product:%s" product-id)))]
     (if (empty? quantity-in-cart) 0 (parse-long quantity-in-cart))))
 
-(defn delete-item
+(defn delete-item!
   [request]
   (let [{:keys [db]} (utils/route-data request)
         cart-id (-> request :session :cart-id)
@@ -31,10 +31,10 @@
       (let [product-db (wcar db (car/get (format "product:%s" product-id)))
             new-stock (+ (product-db "stock") quantity-in-cart)]
         (wcar db (car/hdel (format "cart:%s" cart-id) (format "product:%s" product-id))
-              (car/set (format "product:%s" product-id) (assoc product-db "stock" new-stock)))
-        (http-response/no-content)))))
+              (car/set (format "product:%s" product-id) (assoc product-db "stock" new-stock)))))
+    (http-response/no-content)))
 
-(defn clear-cart
+(defn clear-cart!
   [request]
   (let [{:keys [db]} (utils/route-data request)
         cart-id (-> request :session :cart-id)
@@ -49,7 +49,7 @@
                 (car/set product-id (assoc product-db "stock" new-stock)))))
       (http-response/no-content))))
 
-(defn update-cart
+(defn update-cart!
   [request]
   (let [{:keys [db]} (utils/route-data request)
         cart-id (-> request :session :cart-id)
