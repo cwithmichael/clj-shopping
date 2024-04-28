@@ -8,21 +8,22 @@
   "Fetch all cart items for the current session."
   [request]
   (let [{:keys [db]} (utils/route-data request)
-        cart-id (-> request :session :cart-id)
-        cart-items-db (wcar db (car/hgetall (format "cart:%s" cart-id)))]
-    (if (empty? cart-items-db)
-      (http-response/ok [])
+        cart-id (-> request :session :cart-id)]
+    (if-let
+     [cart-items-db (wcar db (car/hgetall (format "cart:%s" cart-id)))]
       (http-response/ok (reduce (fn [acc item]
                                   (let [product (wcar db (car/get (first item)))]
                                     (conj acc {:product product :cart_quantity (parse-long (second item))})))
                                 []
-                                (partition 2 cart-items-db))))))
+                                (partition 2 cart-items-db)))
+      (http-response/ok []))))
 
 (defn- get-quantity-in-cart
   "Get the quantity of a product in the cart."
   [db cart-id product-id]
-  (let [quantity-in-cart (wcar db (car/hget (format "cart:%s" cart-id)  (format "product:%s" product-id)))]
-    (if (empty? quantity-in-cart) 0 (parse-long quantity-in-cart))))
+  (if-let [quantity-in-cart (wcar db (car/hget (format "cart:%s" cart-id)  (format "product:%s" product-id)))]
+    (parse-long quantity-in-cart)
+    0))
 
 (defn delete-item!
   "Remove a product from the cart."
@@ -60,10 +61,8 @@
   (let [{:keys [db]} (utils/route-data request)
         cart-id (-> request :session :cart-id)
         product-id (-> request :path-params :id)
-        {:keys [quantity increment-by]} (-> request :parameters :body)
-        product-db (wcar db (car/get (format "product:%s" product-id)))]
-    (if (empty? product-db)
-      (http-response/not-found)
+        {:keys [quantity increment-by]} (-> request :parameters :body)]
+    (if-let    [product-db (wcar db (car/get (format "product:%s" product-id)))]
       (let [stock (product-db "stock")
             quantity-in-cart (get-quantity-in-cart db cart-id product-id)]
         (when (some? quantity)
@@ -81,4 +80,5 @@
               (do (wcar db (car/hincrby (format "cart:%s" cart-id) (format "product:%s" product-id) increment-by)
                         (car/set (format "product:%s" product-id) (assoc product-db "stock" new-stock)))
                   (http-response/ok))
-              (http-response/bad-request {:message "Not enough stock"}))))))))
+              (http-response/bad-request {:message "Not enough stock"})))))
+      (http-response/not-found))))

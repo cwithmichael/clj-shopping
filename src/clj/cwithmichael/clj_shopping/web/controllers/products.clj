@@ -12,23 +12,21 @@
 (defn index
   "Fetch all products."
   [request]
-  (let [{:keys [db]} (utils/route-data request)
-        product-keys (wcar db (car/keys "product:*"))]
-    (if (empty? product-keys)
+  (let [{:keys [db]} (utils/route-data request)]
+    (if-let [product-keys (wcar db (car/keys "product:*"))]
+      (let [products (wcar db (apply car/mget product-keys))]
+        (http-response/ok products))
       (let [products (read-products)]
         (doseq [product products]
           (wcar db (car/set (format "product:%s" (product "id")) product)))
-        (http-response/ok products))
-      (let [products (wcar db (apply car/mget product-keys))]
         (http-response/ok products)))))
 
 (defn get-product
   "Fetch a product by ID."
   [request]
   (let [{:keys [db]} (utils/route-data request)
-        id (-> request :path-params :id)
-        product (wcar db (car/get (format "product:%s" id)))]
-    (if product
+        id (-> request :path-params :id)]
+    (if-let [product (wcar db (car/get (format "product:%s" id)))]
       (http-response/ok product)
       (http-response/not-found))))
 
@@ -38,7 +36,7 @@
   (let [{:keys [db]} (utils/route-data request)
         products (read-products)
         cart-keys (wcar db (car/keys "cart:*"))]
-    (when (not-empty cart-keys) (wcar db (apply car/del cart-keys)))
+    (when (seq cart-keys) (wcar db (apply car/del cart-keys)))
     (doseq [product products]
       (wcar db (car/set (format "product:%s" (product "id")) product)))
     (http-response/ok)))
